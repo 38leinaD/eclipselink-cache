@@ -1,0 +1,28 @@
+version: '3.4'
+services:
+  postgres:
+     image: postgres:9.5
+     ports:
+      - "5433:5432"
+     volumes:
+      - "./pgdata:/var/lib/postgresql/data"
+#  oracle:
+#     image: wnameless/oracle-xe-11g
+#     ports:
+#      - "1521:1521"
+  appsvr0:
+    image: 38leinad/wlp-javaee7-eclipselink:latest
+    #image: openliberty/open-liberty:javaee7
+    #image: websphere-liberty:javaee7
+    ports:
+     - "80:9080"
+    volumes:
+     - "${PROJECT}/build/libs/:/config/dropins/"
+  appsvr1:
+    image: 38leinad/wlp-javaee7-eclipselink:latest
+    #image: openliberty/open-liberty:javaee7
+    #image: websphere-liberty:javaee7
+    ports:
+     - "81:9080"
+    volumes:
+     - "${PROJECT}/build/libs/:/config/dropins/"
